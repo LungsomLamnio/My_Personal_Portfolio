@@ -1,32 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PillNav from "../components/PillNav";
-import Home from "./Home"; // or use Outlet if nested routes are used
+import Home from "./Home";
+import About from "./About";
 import logo from "../assets/logo.png";
 
 const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-  // Add more items
+  { label: "Home", href: "#home" },
+  { label: "Projects", href: "#projects" },
+  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const Portfolio = () => {
+  const [activeHref, setActiveHref] = useState(
+    window.location.hash || window.location.pathname
+  );
+
+  useEffect(() => {
+    const onHashChange = () =>
+      setActiveHref(window.location.hash || window.location.pathname);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
   return (
     <div>
       {/* Sticky Navbar */}
       <div className="sticky top-5 z-50 bg-black">
-        <PillNav
-          logo={logo}
-          items={navItems}
-          activeHref={window.location.pathname}
-        />
+        <PillNav logo={logo} items={navItems} activeHref={activeHref} />
       </div>
 
-      {/* Main content */}
+      {/* Main content with anchor targets */}
       <div className="pt-[var(--nav-h, 42px)]">
-        <Home />
-        {/* Replace <Home /> with <Outlet /> if using react-router nested routes */}
+        <div id="home">
+          <Home />
+        </div>
+        <div id="projects">
+          {/* Add your Projects component/content here */}
+        </div>
+        <div id="about">
+          <About />
+        </div>
+        <div id="contact">{/* Add your Contact component/content here */}</div>
       </div>
     </div>
   );
