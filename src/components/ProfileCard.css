@@ -250,10 +250,12 @@
 .pc-avatar-content .avatar {
   width: 100%;
   position: absolute;
+  height: 450px;
   left: 50%;
   transform: translateX(-50%) scale(1);
   bottom: 2px;
   opacity: calc(1.75 - var(--pointer-from-center));
+  transform: translateX(-50%) scale(1.18);
 }
 
 .pc-avatar-content::before {
