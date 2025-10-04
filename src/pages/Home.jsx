@@ -12,6 +12,7 @@ import {
   faTwitter,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
+import { FaChevronDown } from "react-icons/fa";
 
 const socialLogos = [
   {
@@ -31,9 +32,16 @@ const socialLogos = [
     href: "https://www.instagram.com/lungsom.lamnio/",
   },
   {
-    node: <FontAwesomeIcon icon={faTwitter} size="2x" color="#1DA1F2" />,
+    node: (
+      <img
+        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twitter/twitter-original.svg"
+        alt="Twitter"
+        className="h-4 w-4"
+      />
+    ),
     alt: "Twitter",
     href: "https://x.com/lungsom_lamnio",
+    title: "Twitter",
   },
   {
     node: <FontAwesomeIcon icon={faFacebook} size="2x" color="#1877F3" />,
@@ -41,7 +49,6 @@ const socialLogos = [
     href: "https://www.facebook.com/profile.php?id=100036725803105",
   },
 ];
-
 // Loader component for suspense fallback
 const Loader = () => (
   <Html center>
@@ -76,7 +83,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black flex">
+    <div className="relative w-full h-screen overflow-hidden bg-gradient-to-br from-black via-[#120024] to-gray-900 flex">
       {/* Squares animated background */}
       <div className="absolute inset-0 w-full h-full">
         <Squares
@@ -152,7 +159,7 @@ const Home = () => {
         {/* Added buttons below social icons */}
         <div className="w-full mt-6 flex justify-center gap-6">
           <a
-            href="/path/to/your-cv.pdf"
+            href="/LungsomLamnio.pdf"
             download
             className="px-8 py-3 bg-purple-600 text-white rounded-full shadow-md hover:bg-purple-700 transition"
           >
@@ -184,6 +191,17 @@ const Home = () => {
           <OrbitControls enablePan={false} enableZoom={false} />
         </Canvas>
       </div>
+      <button
+        onClick={() =>
+          document
+            .getElementById("about")
+            ?.scrollIntoView({ behavior: "smooth" })
+        }
+        className="absolute left-1/2 bottom-8 -translate-x-1/2 bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg p-4 transition-all duration-300 animate-bounce z-20"
+        aria-label="Scroll Down"
+      >
+        <FaChevronDown size={28} />
+      </button>
     </div>
   );
 };
