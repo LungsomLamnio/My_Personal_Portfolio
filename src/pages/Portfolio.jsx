@@ -3,6 +3,7 @@ import PillNav from "../components/PillNav";
 import Home from "./Home";
 import About from "./About";
 import logo from "../assets/logo.png";
+import Experience from "./Experience";
 
 const navItems = [
   { label: "Home", href: "#home" },
@@ -40,6 +41,9 @@ const Portfolio = () => {
         </div>
         <div id="about">
           <About />
+        </div>
+        <div id="experience">
+          <Experience />
         </div>
         <div id="contact">{/* Add your Contact component/content here */}</div>
       </div>
