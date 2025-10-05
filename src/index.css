@@ -3,15 +3,29 @@
 @tailwind utilities;
 
 /* Add in src/styles/App.css or index.css */
-body,
 html,
+body,
 #root {
+  min-width: 100vw;
+  min-height: 100vh;
   width: 100vw;
   height: 100vh;
   margin: 0;
   padding: 0;
+  background: linear-gradient(to bottom right, #000000, #120024, #1a1a2e);
+  overscroll-behavior: none; /* Prevents white "bounce" backgrounds on some devices */
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  background: transparent; /* Just in case, background uses html/root */
+}
+
+#root {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: transparent;
 }
