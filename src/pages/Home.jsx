@@ -166,10 +166,10 @@ const Home = () => {
             Download CV
           </a>
           <a
-            href="#contact"
+            href="#projects"
             className="px-8 py-3 border border-purple-600 text-purple-600 rounded-full shadow-md hover:bg-purple-600 hover:text-white transition"
           >
-            Contact Me
+            View Projects
           </a>
         </div>
       </div>

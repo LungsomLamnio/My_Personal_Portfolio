@@ -106,7 +106,7 @@ export default function About() {
           own startup where we focus on solving traffic management problems in
           urban cities.
         </p>
-        <p className="text-white leading-relaxed">
+        <p className="text-white leading-relaxed italic">
           I’m always excited to collaborate, innovate, and learn from the best
           minds in tech!
         </p>
