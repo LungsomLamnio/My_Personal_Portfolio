@@ -4,6 +4,7 @@ import Home from "./Home";
 import About from "./About";
 import logo from "../assets/logo.png";
 import Experience from "./Experience";
+import Projects from "./Projects";
 
 const navItems = [
   { label: "Home", href: "#home" },
@@ -45,7 +46,9 @@ const Portfolio = () => {
         <div id="experience">
           <Experience />
         </div>
-        <div id="contact">{/* Add your Contact component/content here */}</div>
+        <div id="projects">
+          <Projects />
+        </div>
       </div>
     </div>
   );
