@@ -41,7 +41,7 @@ const experiences = [
     period: "Oct 2024 – June 2025",
     description:
       "Led web development workshops and events, built technical communities, and inspired innovative solutions on campus.",
-    logo: "/logos/gdg-adtu.png",
+    logo: "https://res.cloudinary.com/dgmftp80m/image/upload/v1737826625/GDG_j9sjss.png",
   },
   {
     company: "CodeSpirit",
@@ -49,7 +49,7 @@ const experiences = [
     period: "Feb 2025 – Mar 2025",
     description:
       "Built a web platform providing centralized updates for national and international hackathons, integrating notifications and event tracking.",
-    logo: "/logos/codespirit.png",
+    logo: "https://res.cloudinary.com/dgmftp80m/image/upload/v1764351542/cplogo_b1krbd.jpg",
   },
   {
     company: "UptoSkills",
@@ -57,15 +57,15 @@ const experiences = [
     period: "July 2025 – Sept 2025",
     description:
       "Developed a scalable platform for human resource management, streamlining workflows and automating staff processes.",
-    logo: "/logos/uptoskills.png",
+    logo: "https://res.cloudinary.com/dgmftp80m/image/upload/v1764351616/UptoSkills_qezp2a.webp",
   },
   {
     company: "GirlScript Summer of Code",
     role: "Tech Contributor",
-    period: "July 2025 – Present",
+    period: "July 2025 – Nov 2025",
     description:
       "Actively contributed to open source projects, enhancing features and mentoring newer contributors in national OSS programs.",
-    logo: "/logos/girlscript.png",
+    logo: "https://res.cloudinary.com/dgmftp80m/image/upload/v1764351704/gssoc_zyi3oz.jpg",
   },
   {
     company: "Google Developers Group",
@@ -73,7 +73,7 @@ const experiences = [
     period: "Sept 2025 – Present",
     description:
       "Managing all technical initiatives, mentoring team leads, and ensuring the successful execution of developer events campus-wide.",
-    logo: "/logos/gdg-adtu.png",
+    logo: "https://res.cloudinary.com/dgmftp80m/image/upload/v1737826625/GDG_j9sjss.png",
   },
 ];
 

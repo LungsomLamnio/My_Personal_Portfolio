@@ -5,6 +5,9 @@ import About from "./About";
 import logo from "../assets/logo.png";
 import Experience from "./Experience";
 import Projects from "./Projects";
+import Contact from "./Contact";
+import Achievements from "./Achievements";
+import Footer from "./Footer";
 
 const navItems = [
   { label: "Home", href: "#home" },
@@ -48,6 +51,15 @@ const Portfolio = () => {
         </div>
         <div id="projects">
           <Projects />
+        </div>
+        <div id="achievements">
+          <Achievements />
+        </div>
+        <div id="contact">
+          <Contact />
+        </div>
+        <div>
+          <Footer />
         </div>
       </div>
     </div>

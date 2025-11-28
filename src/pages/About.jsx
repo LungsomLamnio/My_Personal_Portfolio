@@ -112,7 +112,7 @@ export default function About() {
         </p>
 
         {/* Logo Loop is already within the animated article */}
-        <div className="w-full max-w-4xl mt-8">
+        <div className="w-full max-w-5xl mt-8">
           <LogoLoop
             logos={techLogos}
             speed={100}
