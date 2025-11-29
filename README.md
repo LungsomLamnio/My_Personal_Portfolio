@@ -36,8 +36,8 @@ You need to have **Node.js** and **npm** (or `yarn`) installed.
 1.  **Clone the repository:**
 
     ```bash
-    git clone [Your Repository URL]
-    cd [repository-name]
+    git clone https://github.com/LungsomLamnio/My_Personal_Portfolio
+    cd My_Personal_Portfolio
     ```
 
 2.  **Install dependencies:**
