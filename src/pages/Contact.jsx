@@ -1,8 +1,11 @@
-import React, { useEffect, useState, useCallback, memo } from "react";
-// Removed: emailjs from "@emailjs/browser"
+import React, { useEffect, useState, useCallback, memo } from "react"; // 👈 Import useCallback and memo
+import emailjs from "@emailjs/browser";
 import SplitText from "../components/SplitText";
 
-// Removed: EmailJS Configuration constants (SERVICE_ID, TEMPLATE_ID, PUBLIC_KEY)
+// Configuration: Reading keys from environment variables
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 // --- CONTACT PAGE COMPONENT ---
 
@@ -17,6 +20,7 @@ const InputField = memo(
     onChange,
     onFocus,
   }) => {
+    // Note: We receive value, onChange, and onFocus as stable props now.
     return (
       <div className="mb-6">
         <label
@@ -30,10 +34,10 @@ const InputField = memo(
             id={name}
             name={name}
             rows="6"
-            value={value}
-            onChange={onChange}
+            value={value} // Use stable prop
+            onChange={onChange} // Use stable prop
             required
-            onFocus={onFocus}
+            onFocus={onFocus} // Use stable prop
             className="w-full p-4 bg-gray-800 border border-purple-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 resize-none break-words"
             placeholder={`Enter your ${label.toLowerCase()}`}
           ></textarea>
@@ -42,10 +46,10 @@ const InputField = memo(
             id={name}
             name={name}
             type={type}
-            value={value}
-            onChange={onChange}
+            value={value} // Use stable prop
+            onChange={onChange} // Use stable prop
             required
-            onFocus={onFocus}
+            onFocus={onFocus} // Use stable prop
             className="w-full p-4 bg-gray-800 border border-purple-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 break-words"
             placeholder={`Enter your ${label.toLowerCase()}`}
           />
@@ -54,11 +58,13 @@ const InputField = memo(
     );
   }
 );
+// Naming for easier debugging
 InputField.displayName = "InputField";
 
 const Contact = () => {
   const [animateIn, setAnimateIn] = useState(false);
-  // Removed: isSubmitting, statusMessage states
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -72,19 +78,64 @@ const Contact = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // 1. Use useCallback for handleChange (Kept for local state update)
+  // Debugging check for key existence
+  useEffect(() => {
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.error(
+        "EMAILJS CONFIGURATION ERROR: One or more keys are missing or undefined. Check .env file and restart the server."
+      );
+    }
+  }, []);
+
+  // 1. Use useCallback for handleChange to create a stable function reference
   const handleChange = useCallback((e) => {
+    // No need for interaction flag logic here, as we removed TextType animation
     setFormData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }));
-  }, []); // Stable function
+    setStatusMessage("");
+  }, []); // Empty dependency array ensures this function is created once
 
-  // 2. handleSubmit is no longer needed since Netlify handles submission.
-  //    If you need client-side validation, you would use this function.
-  //    For Netlify's basic form setup, we rely on standard HTML submission.
+  // 2. Use useCallback for handleSubmit to create a stable function reference
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+      setStatusMessage("");
 
-  // Stable no-op function for onFocus
+      if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+        setIsSubmitting(false);
+        setStatusMessage(
+          "Configuration Error: Cannot send message (Keys missing)."
+        );
+        return;
+      }
+
+      try {
+        const templateParams = {
+          user_name: formData.name,
+          user_email: formData.email,
+          message: formData.message,
+        };
+
+        await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
+
+        setStatusMessage("Message sent successfully! Thank you.");
+        setFormData({ name: "", email: "", message: "" });
+      } catch (error) {
+        console.error("EmailJS Error:", error);
+        setStatusMessage(
+          "Failed to send message. Please check console for details."
+        );
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [formData]
+  ); // Dependency on formData is needed for submission payload
+
+  // Stable no-op function for onFocus (since we removed the animation fix)
   const handleFocus = useCallback(() => {}, []);
 
   return (
@@ -124,29 +175,8 @@ const Contact = () => {
             Let's Build Something Great!
           </h2>
 
-          {/* 💥 NETLIFY FORM INTEGRATION 💥 
-              1. Removed onSubmit={handleSubmit}
-              2. Added data-netlify="true"
-              3. Added hidden netlify-honeypot field (for spam filtering)
-              4. Added form name="contact" (crucial for detection)
-          */}
-          <form
-            name="contact"
-            method="POST" // Use POST method
-            data-netlify="true"
-            data-netlify-honeypot="bot-field" // Honeypot spam filter
-            className="bg-transparent"
-          >
-            {/* Required hidden field for Netlify to recognize the form by name */}
-            <input type="hidden" name="form-name" value="contact" />
-
-            {/* Honeypot field (must be hidden from users) */}
-            <p className="hidden">
-              <label>
-                Don’t fill this out if you’re human: <input name="bot-field" />
-              </label>
-            </p>
-
+          <form onSubmit={handleSubmit} className="bg-transparent">
+            {/* 4. Pass stable props and individual values */}
             <InputField
               label="Your Name"
               name="name"
@@ -171,14 +201,25 @@ const Contact = () => {
               onFocus={handleFocus}
             />
 
-            {/* Status Message is removed, as Netlify handles submission confirmation via redirect */}
+            {/* Submission Status Message */}
+            {statusMessage && (
+              <p
+                className={`text-center mb-4 ${
+                  statusMessage.includes("sent")
+                    ? "text-green-400"
+                    : "text-red-400"
+                }`}
+              >
+                {statusMessage}
+              </p>
+            )}
 
             <button
               type="submit"
-              // Removed disabled={isSubmitting} as state is simplified
-              className="w-full px-8 py-3 bg-purple-600 text-white font-semibold rounded-full shadow-lg hover:bg-purple-700 transition duration-300 transform hover:scale-[1.02]"
+              disabled={isSubmitting}
+              className="w-full px-8 py-3 bg-purple-600 text-white font-semibold rounded-full shadow-lg hover:bg-purple-700 transition duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Send Message
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </form>
         </div>
