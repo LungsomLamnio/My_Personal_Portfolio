@@ -1,15 +1,11 @@
-import React, { useEffect, useState, useCallback, memo } from "react"; // 👈 Import useCallback and memo
+import React, { useEffect, useState, useCallback, memo } from "react";
 import emailjs from "@emailjs/browser";
 import SplitText from "../components/SplitText";
 
-// Configuration: Reading keys from environment variables
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-// --- CONTACT PAGE COMPONENT ---
-
-// 3. Make InputField a memoized component for performance stability
 const InputField = memo(
   ({
     label,
@@ -20,7 +16,6 @@ const InputField = memo(
     onChange,
     onFocus,
   }) => {
-    // Note: We receive value, onChange, and onFocus as stable props now.
     return (
       <div className="mb-6">
         <label
@@ -34,10 +29,10 @@ const InputField = memo(
             id={name}
             name={name}
             rows="6"
-            value={value} // Use stable prop
-            onChange={onChange} // Use stable prop
+            value={value}
+            onChange={onChange}
             required
-            onFocus={onFocus} // Use stable prop
+            onFocus={onFocus}
             className="w-full p-4 bg-gray-800 border border-purple-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 resize-none break-words"
             placeholder={`Enter your ${label.toLowerCase()}`}
           ></textarea>
@@ -46,10 +41,10 @@ const InputField = memo(
             id={name}
             name={name}
             type={type}
-            value={value} // Use stable prop
-            onChange={onChange} // Use stable prop
+            value={value}
+            onChange={onChange}
             required
-            onFocus={onFocus} // Use stable prop
+            onFocus={onFocus}
             className="w-full p-4 bg-gray-800 border border-purple-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 transition duration-300 break-words"
             placeholder={`Enter your ${label.toLowerCase()}`}
           />
@@ -58,7 +53,7 @@ const InputField = memo(
     );
   }
 );
-// Naming for easier debugging
+
 InputField.displayName = "InputField";
 
 const Contact = () => {
@@ -72,13 +67,11 @@ const Contact = () => {
     message: "",
   });
 
-  // Animation effect
   useEffect(() => {
     const timer = setTimeout(() => setAnimateIn(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  // Debugging check for key existence
   useEffect(() => {
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
       console.error(
@@ -87,17 +80,14 @@ const Contact = () => {
     }
   }, []);
 
-  // 1. Use useCallback for handleChange to create a stable function reference
   const handleChange = useCallback((e) => {
-    // No need for interaction flag logic here, as we removed TextType animation
     setFormData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }));
     setStatusMessage("");
-  }, []); // Empty dependency array ensures this function is created once
+  }, []);
 
-  // 2. Use useCallback for handleSubmit to create a stable function reference
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
@@ -133,14 +123,12 @@ const Contact = () => {
       }
     },
     [formData]
-  ); // Dependency on formData is needed for submission payload
+  );
 
-  // Stable no-op function for onFocus (since we removed the animation fix)
   const handleFocus = useCallback(() => {}, []);
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-black via-[#120024] to-gray-900 flex justify-center items-center">
-      {/* Centered Contact Form */}
       <div
         className={`relative z-10 flex flex-col items-center justify-center h-full w-full text-white p-8 transition-all duration-1000 ease-in-out ${
           animateIn
@@ -170,13 +158,11 @@ const Contact = () => {
           />
         </h1>
         <div className="w-full max-w-2xl mx-auto bg-gray-900 p-8 rounded-xl shadow-2xl border border-purple-700">
-          {/* Static H2 Subtitle */}
           <h2 className="mt-2 mb-8 text-2xl font-semibold text-gray-400 text-center">
             Let's Build Something Great!
           </h2>
 
           <form onSubmit={handleSubmit} className="bg-transparent">
-            {/* 4. Pass stable props and individual values */}
             <InputField
               label="Your Name"
               name="name"
@@ -201,7 +187,6 @@ const Contact = () => {
               onFocus={handleFocus}
             />
 
-            {/* Submission Status Message */}
             {statusMessage && (
               <p
                 className={`text-center mb-4 ${

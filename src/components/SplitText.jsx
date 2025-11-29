@@ -113,9 +113,7 @@ const SplitText = ({
       });
       try {
         splitInstance.revert();
-      } catch (_) {
-        /* ignore */
-      }
+      } catch (_) {}
       el._rbsplitInstance = null;
     };
   }, [

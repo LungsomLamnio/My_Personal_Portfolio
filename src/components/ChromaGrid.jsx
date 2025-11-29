@@ -15,7 +15,6 @@ const ChromaGrid = ({
   const setY = useRef(null);
   const pos = useRef({ x: 0, y: 0 });
 
-  // Custom demo data if no items are provided
   const demo = [
     {
       image: "https://i.pravatar.cc/300?img=8",
@@ -44,7 +43,6 @@ const ChromaGrid = ({
       gradient: "linear-gradient(165deg,#F59E0B,#000)",
       url: "https://dribbble.com/",
     },
-    // Add more demo items if needed
   ];
 
   const data = items?.length ? items : demo;
@@ -131,7 +129,6 @@ const ChromaGrid = ({
             }}
           />
           <div className="relative z-10 flex-1 p-[10px] box-border">
-            {/* The image here would ideally be your certification badge or achievement icon */}
             <img
               src={c.image}
               alt={c.title}

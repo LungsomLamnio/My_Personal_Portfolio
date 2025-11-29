@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add in src/styles/App.css or index.css */
 html,
 body,
 #root {
@@ -13,7 +12,7 @@ body,
   margin: 0;
   padding: 0;
   background: linear-gradient(to bottom right, #000000, #120024, #1a1a2e);
-  overscroll-behavior: none; /* Prevents white "bounce" backgrounds on some devices */
+  overscroll-behavior: none;
 }
 
 html {
@@ -21,7 +20,7 @@ html {
 }
 
 body {
-  background: transparent; /* Just in case, background uses html/root */
+  background: transparent;
 }
 
 #root {

@@ -1,5 +1,5 @@
-import React, { useRef } from "react"; // <-- Import useRef
-import { motion, useInView } from "framer-motion"; // <-- Import motion and useInView
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import ProfileCard from "../components/ProfileCard";
 import Profile from "../assets/Profile.png";
 import LogoLoop from "../components/LogoLoop";
@@ -13,7 +13,6 @@ import {
 } from "react-icons/si";
 
 const techLogos = [
-  // ... (techLogos array remains the same)
   { node: <SiReact />, title: "React", href: "https://react.dev" },
   { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
   {
@@ -30,7 +29,6 @@ const techLogos = [
   { node: <SiMongodb />, title: "MongoDB", href: "https://mongodb.com" },
 ];
 
-// Define a common animation variant for a subtle slide-up effect
 const revealVariants = {
   hidden: { opacity: 0, y: 50 },
   visible: {
@@ -41,24 +39,21 @@ const revealVariants = {
 };
 
 export default function About() {
-  // 1. Create a ref for the Profile Card container
   const cardRef = useRef(null);
-  const isCardInView = useInView(cardRef, { once: true, amount: 0.2 }); // Triggers when 20% of element is visible
+  const isCardInView = useInView(cardRef, { once: true, amount: 0.2 });
 
-  // 2. Create a ref for the text Article container
   const textRef = useRef(null);
   const isTextInView = useInView(textRef, { once: true, amount: 0.2 });
 
   return (
     <section className="min-h-screen w-full flex items-start bg-gradient-to-br from-black via-[#120024] to-gray-900 py-12 px-8">
-      {/* Left: Profile Card (Animated) */}
       <motion.div
-        ref={cardRef} // Attach ref
+        ref={cardRef}
         className="flex-shrink-0 w-72 mr-40 mt-10 ml-10"
         variants={revealVariants}
         initial="hidden"
-        animate={isCardInView ? "visible" : "hidden"} // Animate when in view
-        style={{ originY: 0 }} // Ensures smooth transition from top of element
+        animate={isCardInView ? "visible" : "hidden"}
+        style={{ originY: 0 }}
       >
         <ProfileCard
           name="Lungsom Lamnio"
@@ -74,21 +69,15 @@ export default function About() {
         />
       </motion.div>
 
-      {/* Right: Description text (Animated) */}
       <motion.article
-        ref={textRef} // Attach ref
+        ref={textRef}
         className="flex-1 ml-30 text-gray-200 mt-20"
         variants={revealVariants}
         initial="hidden"
-        animate={isTextInView ? "visible" : "hidden"} // Animate when in view
+        animate={isTextInView ? "visible" : "hidden"}
       >
         <h2 className="text-4xl font-bold mb-4 text-purple-500">About Me</h2>
 
-        {/*
-          NOTE: To animate the paragraphs individually, you would wrap
-          each <p> tag in its own <motion.p> component with a staggered
-          delay (e.g., delay: 0.1, delay: 0.2, etc.)
-        */}
         <p className="text-lg leading-relaxed mb-3">
           I am Lungsom Lamnio, a 3rd Year B.Tech CSE student at Assam down town
           University. I am passionate about solving real world problems with my
@@ -111,7 +100,6 @@ export default function About() {
           minds in tech!
         </p>
 
-        {/* Logo Loop is already within the animated article */}
         <div className="w-full max-w-5xl mt-8">
           <LogoLoop
             logos={techLogos}

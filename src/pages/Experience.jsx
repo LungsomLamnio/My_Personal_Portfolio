@@ -85,7 +85,6 @@ export default function Experience() {
           Experience
         </h2>
         <div className="relative w-full max-w-6xl flex flex-col items-center">
-          {/* Vertical timeline line ONLY */}
           <div
             className="absolute left-1/2 top-0 h-full w-2 bg-gradient-to-b from-purple-900 via-violet-400 to-purple-900 rounded-full z-0"
             style={{
@@ -127,7 +126,6 @@ export default function Experience() {
                         </div>
                       )}
                     </div>
-                    {/* Logo for timeline event */}
                     <div className="flex flex-col items-center justify-center z-30">
                       <img
                         src={exp.logo}

@@ -49,23 +49,19 @@ const socialLogos = [
     href: "https://www.facebook.com/profile.php?id=100036725803105",
   },
 ];
-// Loader component for suspense fallback
 const Loader = () => (
   <Html center>
     <span className="text-white">Loading 3D...</span>
   </Html>
 );
 
-// CubeModel with desired rotation
 const CubeModel = ({ modelPath }) => {
   const { scene } = useGLTF(modelPath);
   const ref = useRef();
 
   useFrame(({ clock }) => {
     if (ref.current) {
-      // Gentle floating
       ref.current.position.y = 0.2 + Math.sin(clock.getElapsedTime()) * 0.1;
-      // Slow rotation
       ref.current.rotation.y = Math.PI / 5 + clock.getElapsedTime() * 0.25;
       ref.current.rotation.x =
         Math.PI / 7 + Math.sin(clock.getElapsedTime() * 0.3) * 0.07;
@@ -84,7 +80,6 @@ const Home = () => {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-gradient-to-br from-black via-[#120024] to-gray-900 flex">
-      {/* Squares animated background */}
       <div className="absolute inset-0 w-full h-full">
         <Squares
           direction="diagonal"
@@ -95,7 +90,6 @@ const Home = () => {
         />
       </div>
 
-      {/* Left Animated Text */}
       <div
         className={`relative z-10 flex flex-col items-center justify-center h-full w-1/2 text-white p-8 text-center transition-all duration-1000 ease-in-out ${
           animateIn
@@ -156,7 +150,6 @@ const Home = () => {
           ))}
         </div>
 
-        {/* Added buttons below social icons */}
         <div className="w-full mt-6 flex justify-center gap-6">
           <a
             href="/LungsomLamnio.pdf"
@@ -174,7 +167,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Right 3D Model with slide-in animation */}
       <div
         className={`relative z-10 w-1/2 h-full transition-all duration-1000 ease-in-out ${
           animateIn

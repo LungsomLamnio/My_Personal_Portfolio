@@ -30,19 +30,15 @@ const Portfolio = () => {
 
   return (
     <div>
-      {/* Sticky Navbar */}
       <div className="sticky top-5 z-50 bg-black">
         <PillNav logo={logo} items={navItems} activeHref={activeHref} />
       </div>
 
-      {/* Main content with anchor targets */}
       <div className="pt-[var(--nav-h, 42px)]">
         <div id="home">
           <Home />
         </div>
-        <div id="projects">
-          {/* Add your Projects component/content here */}
-        </div>
+        <div id="projects"></div>
         <div id="about">
           <About />
         </div>
